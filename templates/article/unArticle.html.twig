@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    l'article 
+{% endblock %}
+
+{% block content %}
+
+<h4>tags: </h4>
+<ul>
+    {% for tag in article.tags %}
+        <li> {{ tag.label }} </li>       
+    {% endfor %}
+</ul>
+
+<div class=" justify-content-center text-center mt-5">
+
+    {% if article.image is not null %}     
+    <img src="{{ asset('imageArticle/' ~ article.image) }}" class="img-fluid" alt="{{article.titre}}" width="50%" >
+    {% endif %}
+
+    <h2>{{ article.titre }}</h2>
+    <h4>écrit par: {{ article.auteur.fullName }} </h4>
+    <h6 class="text-muted"> {{ article.dateDeCreation | date("d/m/Y \à H\\hi") }} </h6>
+    {% if article.dateUpdate is not null %}    
+        <h6 class="text-muted"> {{ article.dateUpdate | date("d/m/Y \à H\\hi") }}  </h6>
+    {% endif %}
+    <div class="row justify-content-center" >
+        <div class="col-offset-2 col-8">
+            <p> {{ article.contenu | raw }} </p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <h3>Commentaires :</h3>
+    {{ form(formCommentaire) }}
+</div>
+ 
+{% for commentaire in commentaires %}
+    <div class="border-primary border rounded container mb-2">
+
+        {# on verifie si l'utilisateur connecté correspond à l'utilisateur lié au commentaire #}
+        {% if app.user == commentaire.user %}    
+            <a href="{{ path('commentaire_update', {id: commentaire.id} ) }}">éditer</a>
+            <a href="{{ path('commentaire_delete', {id: commentaire.id} ) }}">supprimer</a>
+        {% endif %}
+        <h6 class="text-muted">écrit par: {{ commentaire.user.pseudo }}</h6>
+        <h6 class="text-muted">{{ commentaire.date | date("d-m-Y \à H\\hi") }}</h6>
+        <p>{{ commentaire.contenu }}</p>
+    </div>
+{% endfor %}
+
+ 

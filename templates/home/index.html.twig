@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    {# {{ parent() }} permet de garder le contenu du block parent #}
+    {{ parent() }} - Accueil
+{% endblock %}
+
+
+{% block content %}
+    <div class"row mt-5 justify-content-center text-center">
+        <h1>Dernier article publié: </h1>
+        
+        <div class="col-4">
+            {% if dernierArticle is not null %}
+                <img src="{{ asset('imageArticle/' ~ dernierArticle.image) }}" class="img-fluid" alt="Responsive image">
+            {% endif %}
+        </div>  
+        
+        {# <div class="col-8">
+            <h3> {{ dernierArticle.titre }} </h3>
+            <h6>{{ dernierArticle.dateDeCreation | date("d/m/Y \à H\\hi") }}</h6>
+            <h6>auteur: {{ dernierArticle.auteur.fullName }}</h6>
+            <p>{{ dernierArticle.contenu | slice(0, 150) | raw }} <a href="">...lire la suite</a></p>
+        </div> #}
+    
+    </div>
+{% endblock %}
+

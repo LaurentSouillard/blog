@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    fiche auteur {{ auteur.nom ~ ' ' ~ auteur.prenom }}
+{% endblock %}
+
+{% block content %}    
+    <h2>{{ auteur.nom ~ ' ' ~ auteur.prenom }}</h2>
+    <h5> né(e) le: {{ auteur.dateDeNaissance | date('d-m-Y') }} </h5>
+    <div class="row justify-content-center" >
+        <div class="col-offset-2 col-8">
+            <p> {{ auteur.biographie | raw }}</p>
+        </div>
+    </div>
+
+    <h3>Ses Articles : </h3>
+{% if auteur.articles in not null %}
+    
+    <div class="row d-flex justify-content-center text-center">
+
+    {% for article in auteur.articles | reverse %}    
+        <div class="card m-1" style="width: 18rem;">
+            {% if article.image is not null %}
+                <img src=" {{ asset('imageArticle/' ~ article.image) }} " class="card-img-top" alt="{{ article.titre }}">
+            {% endif %}
+    
+            <div class="card-body">
+    
+                <div>
+                    <a href=" {{ path("article_update", {id: article.id} ) }}"><i class="fas fa-edit mx-1 text-success"></i></a>
+                    <a href="{{ path('article_delete', {id: article.id} ) }}"><i class="fas fa-trash mx-1 text-danger" onclick=" return confirm('êtes vous sûr de vouloir suppromer l\'article ?')" ></i></a>
+                </div>
+    
+            <h5 class="card-title">{{ article.titre }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">crée le: {{ article.dateDeCreation | date("d/m/Y \à H\\hi") }}</h6>
+            <h6>auteur : {{ article.auteur.fullName }}</h6>
+            {% if article.dateUpdate is not null %}
+                <h6 class="card-subtitle mb-2 text-muted">modifié le: {{ article.dateUpdate | date("d/m/Y \à H\\hi") }}</h6>
+            {% endif %}
+    
+            <p class="card-text">{{ article.contenu | slice(0,100) | raw }}...</p>
+            <a href=" {{ path("article", {id: article.id} ) }}" class="btn btn-primary card-link">lire l'article</a>
+           
+            </div>
+        </div>
+    {% endfor %}
+    
+    </div>
+{% else %} 
+<div class="text-center alert alert-danger">
+    <p>{{ auteur.fullname }} n'a pas encore publié d'articles !</p>
+</div>   
+{% endif %}
+
+{% endblock %}

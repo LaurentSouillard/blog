@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('home') }}"> Accueil </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('articles') }}"> Articles</a>
+                </li>
+
+                {% if not is_granted("IS_AUTHENTICATED_FULLY") %}    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}"> Connexion </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}"> Inscription </a>
+                    </li>
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}"> Deconnexion </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href=""> Profil </a>
+                    </li>
+                {% endif %}
+                    
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{{ path('article_ajout') }}">Ajout article</a></li>
+                        <li><a class="dropdown-item" href="{{ path('categorie_ajout') }}">Ajout categorie</a></li>
+                        <li><a class="dropdown-item" href="{{ path('auteur_ajout') }}">Ajout auteurs</a></li>
+                        <li><a class="dropdown-item" href="{{ path('categories') }}">Liste categories</a></li>
+                        <li><a class="dropdown-item" href="{{ path('auteurs') }}">Liste auteurs</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+
+            </ul>
+
+        </div>
+    </nav>
+</header>
+
+<main class="container mb-5 pb-5">
+
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger text-center">
+            <p> {{ message }}</p>
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning text-center">
+            <p> {{ message }}</p>
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">
+            <p> {{ message }}</p>
+        </div>
+    {% endfor %}
+
+    {% block content %}
+    {# ce block restera vide dans le layout, c'est là ou viendera s'inserer le contenu propre à chaque page #}
+    {% endblock %}
+</main>
+
+<footer class="fixed-bottom bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href=" {{ path('cgv') }} "> - CGV</a></li>
+                <li class="nav-item"><a class="nav-link" href=" {{ path('contact') }}"> - Nous contacter </a> </li>
+                <li class="nav-item"><a class="nav-link" href=" {{ path('quiSommesNous') }} "> - Qui sommes nous</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href=" {{ path('valeurs') }} "> - Nos Valeurs</a></li>
+                <li class="nav-item"><a class="nav-link" href=" {{ path('devenirBlogueur') }} "> - Devenir Blogueur </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href=" {{ path('joinTeam') }} "> - Rejoindre l'équipe</a></li>
+            </ul>
+        </div>
+    </nav>
+</footer>
+
+{% endblock %}

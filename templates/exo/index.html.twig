@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExoController!{% endblock %}
+
+{% block body %}
+
+{% for identite in identites %}
+
+    <h2> salut moi c'est {{ identite.prenom ~ ' ' ~ identite.nom }} </h2>
+    
+{% endfor %}
+
+
+{% endblock %}

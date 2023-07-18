@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    formulaire auteur
+{% endblock %}
+
+{% block content %}    
+    
+    <h2>Ajout d'un auteur</h2>
+
+    {# {{ form_start(formAuteur) }}
+
+        {{ form_row(formAuteur.nom) }}
+
+        {{ form_row(formAuteur.prenom) }}
+
+        {{ form_label(formAuteur.biographie) }}
+        {{ form_widget(formAuteur.biographie, { "attr": { "rows": 10 } } ) }}
+
+        {{ form_row(formAuteur.dateDeNaissance) }}
+
+    {{ form_end(formAuteur) }}     #}
+
+    {{ form(formAuteur) }}
+{% endblock %}

@@ -1,0 +1,29 @@
+créez un controller Exo qui servira à retourner la page exo.html.twig, dans laquelle vous affichez vos noms et prenoms en les ayant enregistrer dans un tableau idendite[] dans le controller.
+
+
+- créer une nouvelle entité "Auteur" avec les informations suivantes : 
+        - nom (string 255 non nullable)
+        - prenom (string 255 non nullable)
+        - biographie (text non nullable)
+        - dateDeNaissance (date non nullable)
+
+- faites en sorte de pouvoir ajouter des auteurs à la bdd
+- //   //    //    d'afficher les auteurs sous forme de tableau html avec une colonne supplementaire Action pour pouvoir modifier et supprimer un auteur
+- créer une page pour afficher les informations d'un auteur
+
+
+
+
+- créez l'entité Categorie puis faites en sorte de pouvoir d'afficher les articles par categorie (ex: mettre un sous menu categorie)
+        réalisez tout les affichage necessaire et les fonctionnalités
+
+- créez une entité Commentaire puis faite en sorte de pouvoir laisser un commentaire sur la page d'un article 
+
+bonus: ajouter une pagination dans la pages qui affiches les articles
+
+
+
+- créez la relation entre User et Commentaire
+- faites en sorte de ne pas pouvoir laisser de commantaire si je ne suis pas connecté
+- //            //              // modifier ou supprimer les commentaires sauf ceux que j'ai écrit
+- afficher le pseudo de l'utilasteur dans les commentaires
